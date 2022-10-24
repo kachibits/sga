@@ -9,4 +9,5 @@ FROM hub.indraproject.ir/baseimages/alpine:3.16
 #RUN apk --no-cache add ca-certificates
 WORKDIR /app
 COPY --from=build /work/myapp .
+ENV message="hello word!"
 CMD ["./myapp"]  

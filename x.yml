@@ -1,0 +1,74 @@
+
+variables:
+  # Project Specific Variables
+  REPO_ADDR: hub.indraproject.ir/devops
+  IMAGE_NAME: ${STACKNAME}.${PROJECTNAME}
+  IMAGE_TAG: ${CI_PIPELINE_ID}
+  NAMESPACE: "default"
+  GIT_SUBMODULE_STRATEGY: recursive
+  APP: ${PROJECTNAME}-${CI_COMMIT_REF_SLUG}
+  HELP_REPO_ADDR: http://10.42.0.1:10000
+  HELP_REPO_NAME: local
+  HELM_VALUES: values.yml
+
+stages:
+  - build
+  - deploy
+
+.before_script_template: &docker_registry_auth_configuration
+  before_script:
+    - mkdir -p /kaniko/.docker
+    - echo ${DOCKER_CONF_DEV_ENV} > /kaniko/.docker/config.json
+
+.stg_only_template: &stg_add_requirements
+  only:
+    - "${PIPELINE_TRIGGER}"
+  tags:
+    - "${RUNNER_TAG}"
+
+build-multi-env:
+  stage: build
+  image:
+    name: gcr.io/kaniko-project/executor:debug
+    entrypoint: [""]
+  <<: *docker_registry_auth_configuration
+  <<: *stg_add_requirements
+  variables:
+    GIT_STRATEGY: fetch
+  script:
+    - >-
+      /kaniko/executor
+      --context "${CI_PROJECT_DIR}"
+      --dockerfile "${CI_PROJECT_DIR}/Dockerfile"
+      --destination "${REPO_ADDR}/${IMAGE_NAME}:${IMAGE_TAG}"
+
+deploy-multi-env:
+  stage: deploy
+  image: push hub.indraproject.ir/baseimages/helm:3.10.1
+  variables:
+    GIT_STRATEGY: fetch
+  script:
+  - export KUBECONFIG=${KUBE_CONFIG_LOCAL}
+  - help repo add $HELP_REPO_NAME $HELP_REPO_ADDR
+  - helm repo update 
+  - helm upgrade --install -n $NAMESPACE --set ingress.enable=true --set ingress.hosts[0].host=$APP.local  --set image.repository=${REPO_ADDR}/${IMAGE_NAME} --set image.tag=$IMAGE_TAG  $APP $HELP_REPO_NAME/base 
+  environment:
+    name: review/${CI_COMMIT_REF_SLUG}
+    url: http://$APP.local 
+    on_stop: stop-review-app
+  <<: *stg_add_requirements
+
+stop-review-app:
+  stage: rollup
+  image: hub.indraproject.ir/hubproxy/numb95/gitlab-ci-deploy-tools
+  when: manual
+  variables:
+    GIT_STRATEGY: fetch
+  script:
+    - export KUBECONFIG=${KUBE_CONFIG_DEV_ENV}
+    - echo "Stop $APP"
+    - helm uninstall $APP 
+  environment:
+    name: review/${CI_COMMIT_REF_SLUG}
+    action: stop
+  <<: *stg_add_requirements

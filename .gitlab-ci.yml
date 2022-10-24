@@ -1,0 +1,9 @@
+include:
+  - project: 'kachouei-lab/simple-golang-app'
+    file: 'x.yml'
+
+variables:
+  PROJECTNAME: simple-goland-app
+  STACKNAME: kachouei
+  PIPELINE_TRIGGER: "/^deploy-dev-.*$/"
+  RUNNER_TAG: "kachouei-laptop"
