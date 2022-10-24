@@ -1,6 +1,7 @@
 include:
-  - project: 'kachouei-lab/simple-golang-app'
+  - project: 'kachouei-lab/include-local'
     file: 'x.yml'
+    ref: main
 
 variables:
   PROJECTNAME: simple-goland-app
