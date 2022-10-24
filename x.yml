@@ -1,6 +1,5 @@
 
 variables:
-  # Project Specific Variables
   REPO_ADDR: hub.indraproject.ir/devops
   IMAGE_NAME: ${STACKNAME}.${PROJECTNAME}
   IMAGE_TAG: ${CI_PIPELINE_ID}
@@ -30,7 +29,6 @@ build-multi-env:
   stage: build
   image:
     name: gcr.io/kaniko-project/executor:debug
-    entrypoint: [""]
   <<: *docker_registry_auth_configuration
   <<: *stg_add_requirements
   variables:
