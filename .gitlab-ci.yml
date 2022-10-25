@@ -6,5 +6,8 @@ include:
 variables:
   PROJECTNAME: simple-goland-app
   STACKNAME: kachouei
-  PIPELINE_TRIGGER: "/^deploy-dev-.*$/"
   RUNNER_TAG: "kachouei-laptop"
+  
+.pipeline_trigger: &pipeline_trigger  
+  only:
+    - "/^deploy-stg-.*$/"
