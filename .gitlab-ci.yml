@@ -3,7 +3,8 @@ include:
     file: 'x.yml'
     ref: main
     rules:
-      - if: '$CI_COMMIT_BRANCH =~ "/^deploy-stg-.*$/'
+      - if: '$CI_COMMIT_REF_NAME =~ "/^deploy-stg-.*$/'
+    name: stg
 
 variables:
   PROJECTNAME: simple-goland-app
