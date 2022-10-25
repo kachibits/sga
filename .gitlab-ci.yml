@@ -2,12 +2,11 @@ include:
   - project: 'kachouei-lab/include-local'
     file: 'x.yml'
     ref: main
+    rules:
+      - if: '$CI_COMMIT_BRANCH =~ "/^deploy-stg-.*$/ && $CI_PIPELINE_SOURCE == "push"'
 
 variables:
   PROJECTNAME: simple-goland-app
   STACKNAME: kachouei
   RUNNER_TAG: "kachouei-laptop"
   
-.pipeline_trigger: &pipeline_trigger  
-  only:
-    - "/^deploy-stg-.*$/"
