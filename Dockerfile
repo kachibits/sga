@@ -1,5 +1,7 @@
 FROM hub.indraproject.ir/hubproxy/library/golang:1.18-alpine as build
 WORKDIR /work
+
+RUN echo $B1 $B2
 ADD go.mod .
 ADD go.sum .
 RUN go mod download
