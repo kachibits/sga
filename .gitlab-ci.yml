@@ -2,14 +2,12 @@ include:
   - project: 'kachouei-lab/include-local'
     file: 'x.yml'
     ref: main
-    rules:
-      - if: '$CI_COMMIT_REF_NAME =~ "/^deploy-stg-.*$/"'
-    name: stg
+    name: mutil_env
+
 
 variables:
   PROJECTNAME: simple-goland-app
   STACKNAME: kachouei
-  RUNNER_TAG: "kachouei-laptop"
   BUILD_OPT: "--build-arg B1=salam --build-arg B2=by"
   DOCKERFILE_DEV: "Dockerfile"
   
