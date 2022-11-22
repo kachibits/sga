@@ -11,4 +11,5 @@ variables:
   STACKNAME: kachouei
   RUNNER_TAG: "kachouei-laptop"
   BUILD_OPT: "--build-arg B1=salam --build-arg B2=by"
+  DOCKERFILE_DEV: "Dockerfile"
   
