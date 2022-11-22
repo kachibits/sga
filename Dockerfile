@@ -1,7 +1,7 @@
 FROM hub.indraproject.ir/hubproxy/library/golang:1.18-alpine as build
 WORKDIR /work
-ENV B1=1
-ENV B2=2
+ARG B1=1
+ARG B2=2
 RUN echo $B1 $B2
 ADD go.mod .
 ADD go.sum .
