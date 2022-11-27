@@ -3,6 +3,8 @@ include:
     file: 'x.yml'
     ref: main
     name: mutil_env
+    variables:
+      ABC: mamad
 
 
 variables:
