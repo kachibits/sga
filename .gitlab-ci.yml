@@ -14,4 +14,5 @@ variables:
   DOCKERFILE_DEV: "Dockerfile"
   PROJECT_PATH: "test/"
   ARGO_PROJECT: default
+  HELM_OPT: "--devel"
   
