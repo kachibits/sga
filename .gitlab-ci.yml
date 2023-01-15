@@ -1,6 +1,6 @@
 include:
   - project: 'kachouei-lab/include-local'
-    file: 'x.yml'
+    file: 'y.yml'
     ref: main
     name: mutil_env
     variables:
