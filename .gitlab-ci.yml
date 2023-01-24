@@ -15,5 +15,5 @@ variables:
   PROJECT_PATH: "test/"
   ARGO_PROJECT: default
   HELM_OPT: "--devel"
-  DISABLE_BUILD_IMAGE_STG: "true"
+  #DISABLE_BUILD_IMAGE_STG: "true"
   
