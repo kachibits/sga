@@ -6,6 +6,12 @@ include:
     variables:
       ABC: mamad
 
+.stg_custome:
+  rules:
+  - if: '$RUN == "always"'
+    when: always
+  build_script:
+  - echo "custome build"
 
 variables:
   PROJECTNAME: simple-goland-app
