@@ -6,13 +6,10 @@ include:
     variables:
       ABC: mamad
 
-.stg_custome:
-  rules:
-  - if: '$RUN == "always"'
-    when: always
-  # build_script:
-  # - echo "custome build"
-
+build-image-stg:
+  extends: .build-image-stg
+  script:
+    - echo boro baba
 variables:
   PROJECTNAME: simple-goland-app
   STACKNAME: kachouei
