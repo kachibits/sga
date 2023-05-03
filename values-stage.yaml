@@ -1,0 +1,9 @@
+# Name: {{ .Values.name }}
+application:
+  Type: "Deployment"
+strategy:
+  type: RollingUpdate
+image:
+  pullPolicy: IfNotPresent
+  imagePullSecrets:
+    name: indraprojecthub

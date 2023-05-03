@@ -1,0 +1,68 @@
+Edge: false
+project:
+  endpoint:
+    container_port: 80
+    expose_port: 80
+
+resources: # required resources per pod 
+  staging:
+    replica: 2
+    hpa: false
+    requests: # minimum required resources for service to function
+      memory: "10Mi"
+      cpu: "10m"
+      minReplica: 1 #minium number of pods for service 
+    limits: #maximum required amount of resource for service to function
+      memory: "100Mi"
+      cpu: "100m"
+      maxReplica: 3 #maximum number of pods for service 
+  canary:
+    replica: 1
+    hpa: true  
+    requests: # minimum required resources for service to function
+      memory: "10Mi"
+      cpu: "10m"
+      minReplica: 2 #minium number of pods for service 
+    limits: #maximum required amount of resource for service to function
+      memory: "100Mi"
+      cpu: "100m"
+      maxReplica: 4 #maximum number of pods for service 
+Ingress:
+   staging:        
+    enabled: true         
+    rules:
+    - host: kachi-beats.indraproject.ir
+      path: /
+    className: nginx
+proxy:
+ staging:
+   enabled: true
+   type: "envoy"
+   config:       
+    type: default #default,raw,configMap,local
+    configMap: ""
+    default:
+      adminPort: 9000
+    raw: {}
+    local:
+      files:
+      - envoy/*.yaml       
+   ports:
+   - name: "http"
+     expose_port: 80
+     container_port: 80
+     protocol: "TCP"
+   image:
+     name: hub.indraproject.ir/hubproxy/envoyproxy/envoy:v1.26-latest
+     imagePullSecrets:
+       name: ""
+   env:
+    - name: n1
+      value: v1
+   volumes:
+   - name: app1
+     configMap:
+       name: app1
+   volumeMounts:
+   - name: app1
+     mountPath: /config

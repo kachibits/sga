@@ -1,22 +1,21 @@
 include:
-  - project: 'kachouei-lab/include-local'
-    file: 'y.yml'
-    ref: main
-    name: mutil_env
-    variables:
-      ABC: mamad
+  - project: 'DevOPs/Include-ci'
+    file: '/helm-ci-stage-alibaba-canary.yml'
+  - project: 'DevOPs/Include-ci'
+    file: '/helm-ci-stage-alibaba.yml'
+devops
+stages:
+    - release-note
+    - build
+    - test
+    - deploy
+    - rollback
+    - trigger-ingress
+    - rolldown
 
-build-image-stg:
-  extends: .build-image-stg
-  script:
-    - echo boro baba
+
 variables:
-  PROJECTNAME: simple-goland-app
-  STACKNAME: kachouei
-  #BUILD_OPT: "--build-arg B1=salam --build-arg B2=by"
-  DOCKERFILE_DEV: "Dockerfile"
-  PROJECT_PATH: "test/"
-  ARGO_PROJECT: default
-  HELM_OPT: "--devel"
-  #DISABLE_BUILD_IMAGE_STG: "true"
-  
+    # stage variables
+    PROJECTNAME: kachi-beats
+    STACKNAME: devops    
+    DOCKERFILE_STAGE: Dockerfile
