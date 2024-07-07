@@ -1,21 +1,3 @@
 include:
-  - project: 'DevOPs/Include-ci'
-    file: '/helm-ci-stage-alibaba-canary.yml'
-  - project: 'DevOPs/Include-ci'
-    file: '/helm-ci-stage-alibaba.yml'
-devops
-stages:
-    - release-note
-    - build
-    - test
-    - deploy
-    - rollback
-    - trigger-ingress
-    - rolldown
-
-
-variables:
-    # stage variables
-    PROJECTNAME: kachi-beats
-    STACKNAME: devops    
-    DOCKERFILE_STAGE: Dockerfile
+  - project: 'DevOPs/gitOps/team-a'
+    file: 'pipelines/templates/buildTestDeploy.yml'
