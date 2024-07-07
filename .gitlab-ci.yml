@@ -1,3 +1,4 @@
 include:
   - project: 'DevOPs/GitOps/devops'
     file: 'pipelines/project-a.yml'
+    ref: main
