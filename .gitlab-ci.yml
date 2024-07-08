@@ -1,4 +1,29 @@
-include:
-  - project: 'DevOPs/GitOps/devops'
-    file: 'pipelines/project-a.yml'
-    ref: main
+# include:
+#   - project: 'DevOPs/GitOps/devops'
+#     file: 'pipelines/project-a.yml'
+#     ref: main
+
+stages:
+ - deploy
+
+deploy :
+  stage: deploy
+  only: 
+  - k8s-stg
+  trigger:
+    strategy: depend
+    project: DevOPs/gitOps/devops
+    inputs:
+          IMAGE_ADDR: "mamad"
+          PROJECT_NAME: "taghi"
+          ENV: dev
+
+
+
+# .var-$[[ inputs.STACK_NAME ]]:
+#   variables:
+#     IMAGE_ADDR: "$[[inputs.REGISTRY]]/$[[inputs.STACK_NAME]]/$[[inputs.STACK_NAME]].$[[inputs.PROJECT_NAME]]:${CI_COMMIT_SHORT_SHA}"
+#     PROJECT_NAME: $[[ inputs.PROJECT_NAME ]]
+#     PROJECT_NAME_PATH: deployments/$[[ inputs.ENV ]]/$[[ inputs.PROJECT_NAME ]].yml
+#     IMAGE_PATH: "image.name" 
+
