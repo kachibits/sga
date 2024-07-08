@@ -11,9 +11,9 @@ deploy :
   only: 
   - k8s-stg
   trigger:
+   strategy: depend
    include:
-    - strategy: depend
-      project: DevOPs/gitOps/devops
+    - project: DevOPs/gitOps/devops
       inputs:
             IMAGE_ADDR: "mamad"
             PROJECT_NAME: "taghi"
