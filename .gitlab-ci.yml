@@ -11,15 +11,18 @@ deploy :
   only: 
   - k8s-stg
   trigger:
-   strategy: depend
-   include:
-    - project: DevOPs/gitOps/devops
-      file: "gitlab-ci.yml"
-      ref: "main"
-      inputs:
-            IMAGE_ADDR: "mamad"
-            PROJECT_NAME: "taghi"
-            ENV: dev
+    strategy: depend
+    include:
+      - project: DevOPs/gitOps/devops
+        file: "gitlab-ci.yml"
+        ref: "main"
+        inputs:
+          IMAGE_ADDR: "mamad"
+          PROJECT_NAME: "taghi"
+          ENV: dev
+
+
+
 
 
 
