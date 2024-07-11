@@ -1,25 +1,25 @@
-# include:
-#   - project: 'DevOPs/GitOps/devops'
-#     file: 'pipelines/project-a.yml'
-#     ref: main
+include:
+  - project: 'DevOPs/GitOps/devops'
+    file: 'pipelines/project-a.yml'
+    ref: main
 
-stages:
- - deploy
+# stages:
+#  - deploy
 
-deploy :
-  stage: deploy
-  only: 
-  - k8s-stg
-  trigger:
-    strategy: depend
-    include:
-      - project: DevOPs/gitOps/devops
-        file: "gitlab-ci.yml"
-        ref: "main"
-        inputs:
-          IMAGE_ADDR: "mamad"
-          PROJECT_NAME: "taghi"
-          ENV: dev
+# deploy :
+#   stage: deploy
+#   only: 
+#   - k8s-stg
+#   trigger:
+#     strategy: depend
+#     include:
+#       - project: DevOPs/gitOps/devops
+#         file: "gitlab-ci.yml"
+#         ref: "main"
+#         inputs:
+#           IMAGE_ADDR: "mamad"
+#           PROJECT_NAME: "taghi"
+#           ENV: dev
 
 
 
