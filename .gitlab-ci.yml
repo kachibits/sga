@@ -1,6 +1,6 @@
 include:
   - project: 'DevOPs/GitOps/devops'
-    file: 'pipelines/project-a.yml'
+    file: 'pipelines/sga.yml'
     ref: main
 
 # stages:
