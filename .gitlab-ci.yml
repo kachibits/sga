@@ -6,3 +6,4 @@ include:
      STACK_NAME: devops
      DOCKER_CONF: $DOCKER_CONF
      WORKFLOW_ALWAYS: '$CI_COMMIT_BRANCH == "k8s-stg"'
+     WORKFLOW_NEVER: '$CI_COMMIT_BRANCH == "mamad"'
