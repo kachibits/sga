@@ -1,12 +1,8 @@
 include:
   - component: $CI_SERVER_FQDN/DevOPs/cicd/catalog/all-in-one@1
-    rules:
-      - if: "mamad" == "mamad"
     inputs:
      ENV: stage
      PROJECT_NAME: sga
      STACK_NAME: devops
      DOCKER_CONF: $DOCKER_CONF
      WORKFLOW_ALWAYS: $CI_COMMIT_BRANCH == "k8s-stg"
-     WORKFLOW_NEVER: $CI_COMMIT_BRANCH == "mamad"
-
