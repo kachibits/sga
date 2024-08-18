@@ -5,5 +5,5 @@ include:
      PROJECT_NAME: sga
      STACK_NAME: devops
      DOCKER_CONF: $DOCKER_CONF
-     WORKFLOW_ALWAYS: "mamad"=="mamad"
+     WORKFLOW_ALWAYS: '"mamad"=="mamad"'
 
