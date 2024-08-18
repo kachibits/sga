@@ -1,35 +1,9 @@
 include:
-  - project: 'DevOPs/GitOps/devops'
-    file: 'pipelines/sga.yml'
-    ref: main
-
-# stages:
-#  - deploy
-
-# deploy :
-#   stage: deploy
-#   only: 
-#   - k8s-stg
-#   trigger:
-#     strategy: depend
-#     include:
-#       - project: DevOPs/gitOps/devops
-#         file: "gitlab-ci.yml"
-#         ref: "main"
-#         inputs:
-#           IMAGE_ADDR: "mamad"
-#           PROJECT_NAME: "taghi"
-#           ENV: dev
-
-
-
-
-
-
-# .var-$[[ inputs.STACK_NAME ]]:
-#   variables:
-#     IMAGE_ADDR: "$[[inputs.REGISTRY]]/$[[inputs.STACK_NAME]]/$[[inputs.STACK_NAME]].$[[inputs.PROJECT_NAME]]:${CI_COMMIT_SHORT_SHA}"
-#     PROJECT_NAME: $[[ inputs.PROJECT_NAME ]]
-#     PROJECT_NAME_PATH: deployments/$[[ inputs.ENV ]]/$[[ inputs.PROJECT_NAME ]].yml
-#     IMAGE_PATH: "image.name" 
+  - component: $CI_SERVER_FQDN/DevOPs/cicd/catalog/all-in-one@1
+    inputs:
+     ENV: staging
+     PROJECT_NAME: sga
+     STACK_NAME: devops
+     DOCKER_CONF: $DOCKER_CONF
+     WORKFLOW_ALWAYS: "mamad"=="mamad"
 
