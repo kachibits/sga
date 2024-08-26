@@ -7,3 +7,12 @@ include:
      DOCKER_CONF: $DOCKER_CONF
      WORKFLOW_ALWAYS: '$CI_COMMIT_BRANCH == "k8s-stg"'
      DEPLOY_WHEN: on_success
+  - component: $CI_SERVER_FQDN/DevOPs/cicd/catalog/deploy-trigger@1
+    inputs:
+     ENV: stage
+     PROJECT_NAME: sga
+     STACK_NAME: devops
+     NS: kachi-bits
+     EXTRA_TAGS: v1
+     JOB: trigger-deploy Env:Stage kachi-bits/sga
+
