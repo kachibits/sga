@@ -7,3 +7,4 @@ image:
   pullPolicy: IfNotPresent
   imagePullSecrets:
     name: indraprojecthub
+    
