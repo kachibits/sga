@@ -26,7 +26,7 @@ include:
      PROJECT_NAME: sga
      STACK_NAME: devops
      DOCKER_CONF: $DOCKER_CONF
-     WORKFLOW_ALWAYS: '$CI_PIPELINE_SOURCE == "merge_request_event" && CI_MERGE_REQUEST_TARGET_BRANCH_NAME =="k8s-stg"'
+     WORKFLOW_ALWAYS: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME =="k8s-stg"'
      DEPLOY_WHEN: on_success
      DEPLOY_TYPE: multiEnv
 
