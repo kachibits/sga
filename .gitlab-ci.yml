@@ -15,5 +15,11 @@ include:
      NS: kachi-bits
      EXTRA_TAG: v1
      JOB: trigger-deploy Env:Stage kachi-bits/sga
-     
 
+stages:
+    - build
+    - test
+    - sync
+    - deploy
+    - test-e2e
+    - rollback
