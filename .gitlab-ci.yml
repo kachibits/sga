@@ -12,7 +12,7 @@ include:
      ENV: stage
      PROJECT_NAME: sga
      STACK_NAME: devops
-     NS: kachi-bits
+     NS: kachibits
      EXTRA_TAG: v1
      JOB: trigger-deploy Env:Stage kachi-bits/sga
 
