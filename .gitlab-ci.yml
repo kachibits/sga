@@ -11,11 +11,20 @@ include:
   - component: $CI_SERVER_FQDN/DevOPs/cicd/catalog/all-in-one@1
     inputs:
      ENV: dev
+     PROJECT_NAME: sga
+     STACK_NAME: devops
+     DOCKER_CONF: $DOCKER_CONF
+     WORKFLOW_ALWAYS: '$CI_COMMIT_BRANCH == "k8s-dev"'
+     DEPLOY_WHEN: on_success
+
+  - component: $CI_SERVER_FQDN/DevOPs/cicd/catalog/all-in-one@1
+    inputs:
+     ENV: mutliEnv
      NS: devops
      PROJECT_NAME: sga
      STACK_NAME: devops
      DOCKER_CONF: $DOCKER_CONF
-     WORKFLOW_ALWAYS: '$CI_COMMIT_BRANCH == "k8s-stg"'
+     WORKFLOW_ALWAYS: '$CI_PIPELINE_SOURCE == "merge_request_event" && CI_MERGE_REQUEST_TARGET_BRANCH_NAME =="k8s-stg"'
      DEPLOY_WHEN: on_success
      DEPLOY_TYPE: multiEnv
 
