@@ -1,7 +1,8 @@
 include:
   - component: $CI_SERVER_FQDN/DevOPs/cicd/catalog/all-in-one@1
     inputs:
-     ENV: stage
+     ENV: stage     
+     NS: devops
      PROJECT_NAME: sga
      STACK_NAME: devops
      DOCKER_CONF: $DOCKER_CONF
@@ -11,6 +12,7 @@ include:
   - component: $CI_SERVER_FQDN/DevOPs/cicd/catalog/all-in-one@1
     inputs:
      ENV: dev
+     NS: devops
      PROJECT_NAME: sga
      STACK_NAME: devops
      DOCKER_CONF: $DOCKER_CONF
