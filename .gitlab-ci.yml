@@ -21,7 +21,7 @@ include:
 
   - component: $CI_SERVER_FQDN/DevOPs/cicd/catalog/all-in-one@1
     inputs:
-     ENV: mutliEnv
+     ENV: multiEnv
      NS: devops
      PROJECT_NAME: sga
      STACK_NAME: devops
