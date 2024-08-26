@@ -7,3 +7,15 @@ include:
      DOCKER_CONF: $DOCKER_CONF
      WORKFLOW_ALWAYS: '$CI_COMMIT_BRANCH == "k8s-stg"'
      DEPLOY_WHEN: on_success
+
+  - component: $CI_SERVER_FQDN/DevOPs/cicd/catalog/all-in-one@1
+    inputs:
+     ENV: dev
+     ns: devops
+     PROJECT_NAME: sga
+     STACK_NAME: devops
+     DOCKER_CONF: $DOCKER_CONF
+     WORKFLOW_ALWAYS: '$CI_COMMIT_BRANCH == "k8s-stg"'
+     DEPLOY_WHEN: on_success
+     DEPLOY_TYPE: multiEnv
+
