@@ -1,4 +1,3 @@
 include:
   - project: DevOPs/cicd/LaunchPad-devops
     file: pipelines/sga-ci.yml
-
