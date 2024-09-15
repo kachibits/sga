@@ -14,3 +14,4 @@ WORKDIR /app
 COPY --from=build /work/myapp .
 ENV message="hello word!"
 CMD ["./myapp"]  
+
