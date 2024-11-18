@@ -9,7 +9,7 @@ env:
   AWS_ACCOUNT_ID: "575108942639"  # Store your AWS Account ID in Secrets
   AWS_REGION: me-central-1         # Store your AWS Region in Secrets
   ECR_REPOSITORY: dizno/sga        # Store your ECR Repository name in Secrets
-  ROLE_NAME: dizno-dev-ecs-cluster01-sga-dep-github-role # Store the IAM Role name in Secrets
+  ROLE_NAME: arn:aws:iam::575108942639:role/dizno-dev-ecs-cluster01-sga2-dep-github-role 
   LAMBDA_NAME: dizno-dev-ecs-cluster01-sga-dep
   IMAGE_TAG: ${{ github.sha }}  # Optional: Unique tag based on commit hash
   DOCKERFILE: Dockerfile.pub
