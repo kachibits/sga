@@ -8,9 +8,9 @@ on:
 env:
   AWS_ACCOUNT_ID: "575108942639"  # Store your AWS Account ID in Secrets
   AWS_REGION: me-central-1         # Store your AWS Region in Secrets
-  ECR_REPOSITORY: dizno/sga      # Store your ECR Repository name in Secrets
-  ROLE_NAME: "dizno-dev-ecs-cluster01-sga-dep-github-role" 
-  LAMBDA_NAME: dizno-dev-ecs-cluster01-sga-dep
+  ECR_REPOSITORY: dizno/sga2      # Store your ECR Repository name in Secrets
+  ROLE_NAME: "dizno-dev-ecs-cluster01-sga2-dep-github-role" 
+  LAMBDA_NAME: dizno-dev-ecs-cluster01-sga2-dep
   IMAGE_TAG: ${{ github.sha }}  # Optional: Unique tag based on commit hash
   DOCKERFILE: Dockerfile.pub
 
@@ -65,7 +65,7 @@ jobs:
           role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT_ID }}:role/${{ env.ROLE_NAME }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Push Docker image to ECR and invoke Lambda
+      - name: invoke Lambda
         run: |
           ECR_REPOSITORY_URI=${{ env.AWS_ACCOUNT_ID }}.dkr.ecr.${{ env.AWS_REGION }}.amazonaws.com/${{ env.ECR_REPOSITORY }}
           aws lambda invoke \
