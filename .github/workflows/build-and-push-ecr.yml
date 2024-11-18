@@ -9,7 +9,7 @@ env:
   AWS_ACCOUNT_ID: "575108942639"  # Store your AWS Account ID in Secrets
   AWS_REGION: me-central-1         # Store your AWS Region in Secrets
   ECR_REPOSITORY: dizno/sga        # Store your ECR Repository name in Secrets
-  ROLE_NAME: ${{ secrets.ROLE_NAME }}  # Store the IAM Role name in Secrets
+  ROLE_NAME: $ROLE_NAME  # Store the IAM Role name in Secrets
   LAMBDA_NAME: dizno-dev-ecs-cluster01-sga-dep
   IMAGE_TAG: ${{ github.sha }}  # Optional: Unique tag based on commit hash
   DOCKERFILE: Dockerfile.pub
@@ -30,22 +30,22 @@ jobs:
         id: configure-aws-credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.ROLE_NAME }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          role-to-assume: arn:aws:iam::$AWS_ACCOUNT_ID:role/$ROLE_NAME
+          aws-region: $AWS_REGION
 
       - name: Log in to Amazon ECR
         id: login-ecr
         run: |
-          aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+          aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
 
       - name: Build Docker image
         run: |
-          ECR_REPOSITORY_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}
-          docker build -t $ECR_REPOSITORY_URI:$IMAGE_TAG -f ${{ secrets.DOCKERFILE }} .
+          ECR_REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY
+          docker build -t $ECR_REPOSITORY_URI:$IMAGE_TAG -f $DOCKERFILE .
 
       - name: Push Docker image to ECR
         run: |
-          ECR_REPOSITORY_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}
+          ECR_REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY
           docker push $ECR_REPOSITORY_URI:$IMAGE_TAG
 
   deploy:
@@ -62,15 +62,15 @@ jobs:
         id: configure-aws-credentials
         uses: aws-actions/configure-aws-credentials@v3
         with:
-          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/${{ secrets.ROLE_NAME }}
-          aws-region: ${{ secrets.AWS_REGION }}
+          role-to-assume: arn:aws:iam::$AWS_ACCOUNT_ID:role/$ROLE_NAME
+          aws-region: $AWS_REGION
 
       - name: Push Docker image to ECR and invoke Lambda
         run: |
-          ECR_REPOSITORY_URI=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/${{ secrets.ECR_REPOSITORY }}
+          ECR_REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY
           aws lambda invoke \
             --cli-binary-format raw-in-base64-out \
-            --region ${{ secrets.AWS_REGION }} \
-            --function-name ${{ secrets.LAMBDA_NAME }} \
+            --region $AWS_REGION \
+            --function-name $LAMBDA_NAME \
             --payload '{"imageName": "'"$ECR_REPOSITORY_URI:$IMAGE_TAG"'"}' \
             response.json
