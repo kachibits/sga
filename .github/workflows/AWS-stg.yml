@@ -10,7 +10,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
-    uses: kachibits/actions/.github/workflows/build-deploy-lambda.yml@v1
+    uses: kachi-bits/resuable-actions/.github/workflows/build-deploy-lambda.yml@v1
     with:
       AWS_ACCOUNT_ID: "651706774764"
       AWS_REGION: "me-central-1"
