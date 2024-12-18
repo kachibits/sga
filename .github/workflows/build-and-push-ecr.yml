@@ -1,20 +1,38 @@
-name: build-Deploy dev
+name: build-Deploy 
 
 on:
   push:
     branches:
       - main
+      - dev
+      - staging
 jobs:
-  api:
+  dev:
+    if: github.ref == 'refs/heads/dev'
     permissions:
       id-token: write
       contents: read
-    uses: kachi-bits/resuable-actions/.github/workflows/build-deploy-lambda.yml@main
+    uses: kachi-bits/resuable-actions/.github/workflows/build-deploy-lambda.yml@v1
     with:
-      AWS_ACCOUNT_ID: "575108942639"
+      AWS_ACCOUNT_ID: "651706774764"
       AWS_REGION: "me-central-1"
-      LAMBDA_NAME: "kachi-bits-c2-sga-dev"
-      ECR_REPOSITORY: "kachi-bits/sga-dev"
       DOCKERFILE: "Dockerfile.pub"
       BUILD_CONTEXT: "."
+      APP_NAME: sga
+      PROJECT_NAME: kachibits
+      CLUSTER_NAME: dev
 
+  staging:
+    if: github.ref == 'refs/heads/staging' || github.ref == 'refs/heads/main'
+    permissions:
+      id-token: write
+      contents: read
+    uses: kachi-bits/resuable-actions/.github/workflows/build-deploy-lambda.yml@v1
+    with:
+      AWS_ACCOUNT_ID: "651706774764"
+      AWS_REGION: "me-central-1"
+      DOCKERFILE: "Dockerfile.pub"
+      BUILD_CONTEXT: "."
+      APP_NAME: sga
+      PROJECT_NAME: kachibits
+      CLUSTER_NAME: stg
