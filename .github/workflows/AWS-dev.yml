@@ -1,0 +1,21 @@
+name: build-Deploy  dev
+
+on:
+  push:
+    branches:
+      - dev
+jobs:
+  dev:
+    permissions:
+      id-token: write
+      contents: read
+    uses: kachi-bits/resuable-actions/.github/workflows/build-deploy-lambda.yml@v1
+    with:
+      AWS_ACCOUNT_ID: "651706774764"
+      AWS_REGION: "me-central-1"
+      DOCKERFILE: "Dockerfile.pub"
+      BUILD_CONTEXT: "."
+      APP_NAME: sga
+      PROJECT_NAME: kachibits
+      CLUSTER_NAME: dev
+
