@@ -19,4 +19,4 @@ jobs:
       APP_NAME: sga
       PROJECT_NAME: kachibits
       CLUSTER_NAME: stg
-      RUNNER: self-hosted
+      RUNNER: kachibits
