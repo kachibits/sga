@@ -7,9 +7,6 @@ on:
       - staging
 jobs:
   staging:
-    runs-on: ubuntu-latest
-    container:
-      image: arm64v8/ubuntu:latest
     permissions:
       id-token: write
       contents: read
